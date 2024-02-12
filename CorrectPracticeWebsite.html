@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Screen Time Impact Visualization</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        .opportunity-costs-container {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            position: relative;
+            height: 50px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .bar-container {
+                background-color: #f0f0f0;
+                border: 1px solid #ddd;
+                position: relative;
+                height: 50px;
+                border-radius: 10px;
+                overflow: hidden;
+                margin: 20px 0;
+            }
+            .bar {
+                height: 100%;
+                position: absolute;
+                top: 0;
+            }
+            .screen-time { background-color: #fd544b; width: 0; left: 0; } /* Red for screen time */
+            .life-time { background-color: #65c671; width: 0; } /* Green for the rest of life */
+            .work-time { background-color: #c2c2c2; width: 0; } /* Grey for work/school */
+            
+        .content-section {
+            text-align: left;
+            margin: 20px 0;
+        }
+        blockquote {
+            background: #f9f9f9;
+            border-left: 10px solid #ccc;
+            margin: 1.5em 10px;
+            padding: 0.5em 10px;
+            quotes: "\201C""\201D""\2018""\2019";
+        }
+        blockquote:before {
+            color: #ccc;
+            content: open-quote;
+            font-size: 4em;
+            line-height: 0.1em;
+            margin-right: 0.25em;
+            vertical-align: -0.4em;
+        }
+        blockquote p {
+            display: inline;
+        }
+        ol, ul {
+            text-align: left;
+            display: inline-block;
+            margin-left: 0;
+        }
+        button {
+            background-color: #d94a4a; /* Green */
+            border: none;
+            color: whitesmoke;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h2, h3, h5 {
+            color: #333;
+        }
+        .quote, .blog-content, .steps, .resources {
+            padding: 15px;
+            margin-bottom: 20px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+        .tier {
+            font-weight: bold;
+            background-color: #eee;
+            padding: 5px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        #improvement-steps, #additional-resources {
+            background-color: #eef2f7; /* Different background for visual distinction */
+        }
+        #about-footer {
+    background-color: #f0e8ff; /* Soft purple */
+    color: #6a5495; /* Complementary darker purple for the text */
+    font-family: 'Varela Round', sans-serif; /* Example of a whimsical font */
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+#about-footer {
+    border: 2px dashed #a79cc8; /* Softly dashed border */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Soft shadow for depth */
+    border-radius: 20px; /* More pronounced rounded corners */
+    background: url('path-to-cute-background-image.jpg') no-repeat center center; /* Optional: Cute background image */
+    background-size: cover; /* Ensures background image covers the div */
+}
+#about-footer {
+    padding: 30px; /* More internal space */
+    margin: 40px auto; /* Centers the section with more space around it */
+}
+        /* Add all the CSS here */
+        .custom-details {
+          border: 2px solid indianred;
+          border-radius: 8px;
+          margin-bottom: 10px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .custom-summary {
+          background-color: indianred;
+          color: white;
+          padding: 10px;
+          margin: -2px; /* To counteract the border */
+          border-radius: 6px;
+          cursor: pointer;
+          font-weight: bold;
+        }
+
+        .custom-summary:hover {
+          background-color: #d94a4a;
+        }
+
+        .content {
+          padding: 20px;
+        }
+
+        .custom-details[open] .custom-summary {
+          border-radius: 6px 6px 0 0;
+        }
+
+        .custom-details[open] {
+          border-radius: 8px 8px 0 0;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <h1>Is My Screen Time a Problem?</h1>
+    <h5 style="font-weight: normal;">Our devices are so important! They let us connect with people from around the world, create in varied mediums, and most importantly share moments with people we care about. But maybe it's worth thinking about the costs of our consumption. <em>Is every moment on (TikTok, Snapchat, Instagram, etc) worth it?</em></h5><br>
+    <img src="photo1.png" alt="Phone Addiction">
+
+    <h3>Visualize the Real Cost of Your Screen Time</h3>
+    <p>This calculation assumes 8 hours of sleep per night.</p>
+
+    <!-- Input form for age, screen time, work/school hours -->
+    <label for="age">Your Age:</label>
+    <input type="number" id="age" min="1" max="120" required><br>
+    <label for="screenTime">Daily Hours on Screen:</label>
+    <input type="number" id="screenTime" min="0" max="24" required><br>
+    <label for="workSchoolTime">Daily Hours on Work/School:</label>
+    <input type="number" id="workSchoolTime" min="0" max="24" required><br>
+    <button onclick="visualizeImpact()">Visualize Impact</button>
+
+    <!-- Container for the visual representation -->
+    <div id="visualContainer" class="bar-container">
+        <div id="screenBar" class="bar screen-time"></div>
+        <div id="workBar" class="bar work-time"></div>
+        <div id="lifeBar" class="bar life-time"></div>
+    </div>
+    <div id="impactDescription"></div>
+    <button id="opportunityCostBtn" style="display:none;" onclick="calculateOpportunityCosts()">Calculate Opportunity Costs</button>
+    <div id="opportunityCosts"></div>
+</div>
+
+<!-- JavaScript functions for visualization and opportunity costs -->
+<script>
+    function visualizeImpact() {
+        const age = parseInt(document.getElementById('age').value);
+        const screenTime = parseFloat(document.getElementById('screenTime').value);
+        const workSchoolTime = parseFloat(document.getElementById('workSchoolTime').value);
+        const wakingHours = 16; // Correctly using 16 waking hours.
+        
+        // Ensure screenTime and workSchoolTime do not exceed wakingHours
+        const totalActiveTime = Math.min(screenTime + workSchoolTime, wakingHours);
+        const screenTimePercentage = (screenTime / wakingHours) * 100;
+        const workSchoolTimePercentage = (workSchoolTime / wakingHours) * 100;
+        const freeTimePercentage = 100 - (screenTimePercentage + workSchoolTimePercentage);
+    
+        document.getElementById('screenBar').style.width = `${screenTimePercentage}%`;
+        document.getElementById('workBar').style.width = `${workSchoolTimePercentage}%`;
+        document.getElementById('workBar').style.left = `${screenTimePercentage}%`;
+        document.getElementById('lifeBar').style.width = `${freeTimePercentage}%`;
+        document.getElementById('lifeBar').style.left = `${screenTimePercentage + workSchoolTimePercentage}%`;
+    
+        const remainingYears = Math.max(80 - age, 0);
+        const lifetimeScreenTimeHours = screenTime * 365 * remainingYears;
+        const lifetimeScreenTimeYears = lifetimeScreenTimeHours / (24 * 365);
+    
+        document.getElementById('impactDescription').innerHTML = `
+            <p>By spending <strong>${screenTimePercentage.toFixed(2)}%</strong> of your waking hours on screens, 
+            you will be losing <strong>${lifetimeScreenTimeYears.toFixed(2)} years</strong> over a lifetime, assuming you live to 80.</p>
+        `;
+    
+        document.getElementById('opportunityCostBtn').style.display = 'block';
+    }
+    
+    function calculateOpportunityCosts() {
+        const screenTime = parseFloat(document.getElementById('screenTime').value);
+        const age = parseInt(document.getElementById('age').value);
+        const remainingYears = Math.max(80 - age, 0);
+        const dailyScreenTimeHours = screenTime;
+        const yearlyScreenTimeHours = dailyScreenTimeHours * 365;
+        const lifetimeScreenTimeHours = yearlyScreenTimeHours * remainingYears;
+    
+        const skillsLost = lifetimeScreenTimeHours / 500; // Assuming 500 hours to learn a new skill
+        const booksRead = lifetimeScreenTimeHours / 4.5; // Assuming 4.5 hours to read a book
+        const milesWalked = lifetimeScreenTimeHours * 3; // Assuming walking 3 miles per hour
+        const moneyLost = lifetimeScreenTimeHours * 5; // Assuming $5 per productive hour
+    
+        document.getElementById('opportunityCosts').innerHTML = `
+            <h4>With the time spent on screens, you could have instead:</h4>
+            <ul>
+                <li>Learned <strong>${Math.floor(skillsLost).toLocaleString()}</strong> new skills (500hrs per skill)</li>
+                <li>Read <strong>${Math.floor(booksRead).toLocaleString()}</strong> books</li>
+                <li>Walked <strong>${Math.floor(milesWalked).toLocaleString()}</strong> miles</li>
+                <li>Earned an additional <strong>$${Math.floor(moneyLost).toLocaleString()}</strong> at $5/hr</li>
+            </ul>
+        `;
+    }
+    </script>
+    
+    
+
+<div class="container" id="improvement-steps">
+    <h2>Maybe, But What Can I Do?</h2>
+    <p>Start by identifying your reasons for wanting to reduce screen time. This could be to feel less lonely, sleep better, boost productivity, or simply be more present. Write down your goals.
+    </p>
+    <div>
+  <h3>Simple Steps to Reduce Screen Time:</h3>
+
+  <details class="custom-details">
+    <summary class="custom-summary">Step 1: Make Screens Less Appealing & Gain Independence</summary>
+    <div class="content">
+      <ul>
+        <li>Turn off unnecessary notifications to minimize distractions.</li>
+        <li>Switch your screen to <a href="https://www.youtube.com/watch?v=gJ5lpCbNeqg" target="_blank">grayscale.</a></li>
+        <li>Power off your phone during focus time</li>
+        <li>Declutter your home screen by removing unnecessary apps</li>
+      </ul>
+      <br>
+      <ul>
+        <li>Wear a watch to check time</li>
+        <li>Use a standalone alarm clock, not your phone</li>
+        <li>Always carry a book for idle moments</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="custom-details">
+    <summary class="custom-summary">Step 2: Embrace Boredom & Choose Better Media</summary>
+    <div class="content">
+      <p>Understand that feeling bored can enhance mental well-being, sparking creativity and self-discipline. Allow yourself to experience and accept these moments without reaching for your phone.</p>
+      <ul>
+        <li>If you're not convinced, opt for enriching media like podcasts, documentaries, or books that offer deeper engagement than social media.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="custom-details">
+    <summary class="custom-summary">Step 3: Develop Your Hobbies</summary>
+    <div class="content">
+      <p>You know all those things you say you want to do, but never seem to have time for? <strong>Less Screen Time = More Free time!</strong> Here spend time thinking of what hobbies you want to develop</p>
+      <ul>
+        <li>Sports: Rock Climbing, Surfing, Paddleboarding, Swimming, Running, Cycling, Dancing</li>
+        <li>The Arts: Drawing, Sketching, Painting, Music, Photography, Writing, Film</li>
+        <li>Cooking: trying new recipes, baking your favorite sweets, experimenting with international cuisines</li>
+        <li><strong>Spending Time with Loved Ones:</strong> movie nights, picnics, walks, and all the adventures you want</li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+      
+
+<p> Recognize the challenge of changing your phone habits. Like any lifestyle change, it takes continuous effort. Remember, your time is valuable, and it's okay to guard it against endless scrolling.</p>
+<div class="container" id="additional-resources">
+    <h2>Additional Resources</h2>
+    <p>Here are some helpful resources for further reading:</p>
+    <ul>
+        <li><a href="https://www.plume.com/homepass/blog/7-digital-detox-tips-to-promote-better-mental-health/" target="_blank">7 Digital Detox Tips</a></li>
+        <li> some cool article look for research</li>
+        <li><a href="https://time.com/5480002/benefits-of-boredom/" target="_blank" >Time Magazine: Being Bored Can Be Good for You — If You Do It Right.</a></li></li>
+    </ul>
+    <h2> Some Personal Reccomendations:</h2>
+    <ul>
+        <li> My favorite radio show: NPR Wait Wait Don't Tell Me</li>
+        <li> Some really cool books: basldh</li>
+        <li> Things I am currently trying to learn: how to speak french, rock climb (v6), and code!</li>
+    </ul>
+</div>
+
+<div class="container" id="about-footer">
+    <h2>About Me</h2>
+    <p>Hello! I am a 3rd year Environmental Studies student (not CS which I know is obvious) who wanted to make a visualization for my friends and family. I learned how to do this in a couple days using <a href="https://www.youtube.com/watch?v=PlxWf493en4" target ="_blank">FreeCodeCamp</a>, which is an awesome free resource!</p>
+</div>
+
+
+
+
+</body>
+</html>
+
+
