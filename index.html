@@ -10,11 +10,12 @@
 
   gtag('config', 'G-W2VGJ32BGB');
 </script>
+    
     <meta charset="UTF-8">
     <title>Screen Time Impact Visualization</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-
+    
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -35,7 +36,7 @@
             margin-bottom: 20px;
             border-radius: 10px;
         }
-        .opportunity-costs-container {
+        .opportunity-costs-container, .bar-container {
             background-color: #f0f0f0;
             border: 1px solid #ddd;
             position: relative;
@@ -44,24 +45,15 @@
             overflow: hidden;
             margin: 20px 0;
         }
-        .bar-container {
-                background-color: #f0f0f0;
-                border: 1px solid #ddd;
-                position: relative;
-                height: 50px;
-                border-radius: 10px;
-                overflow: hidden;
-                margin: 20px 0;
-            }
-            .bar {
-                height: 100%;
-                position: absolute;
-                top: 0;
-            }
-            .screen-time { background-color: #fd544b; width: 0; left: 0; } /* Red for screen time */
-            .life-time { background-color: #65c671; width: 0; } /* Green for the rest of life */
-            .work-time { background-color: #c2c2c2; width: 0; } /* Grey for work/school */
-            
+        .bar {
+            height: 100%;
+            position: absolute;
+            top: 0;
+        }
+        .screen-time { background-color: #fd544b; } /* Red for screen time */
+        .life-time { background-color: #65c671; } /* Green for the rest of life */
+        .work-time { background-color: #c2c2c2; } /* Grey for work/school */
+    
         .content-section {
             text-align: left;
             margin: 20px 0;
@@ -90,7 +82,7 @@
             margin-left: 0;
         }
         button {
-            background-color: #d94a4a; /* Green */
+            background-color: #d94a4a; /* Red */
             border: none;
             color: whitesmoke;
             text-align: center;
@@ -116,7 +108,7 @@
             border-radius: 5px;
         }
         img {
-            max-width: 100%;
+            max-width: 95%; /* Slightly reduce image size */
             height: auto;
             display: block;
             margin: 0 auto;
@@ -130,65 +122,54 @@
             display: inline-block;
             margin: 10px 0;
         }
-
+    
         #improvement-steps, #additional-resources {
             background-color: #eef2f7; /* Different background for visual distinction */
+            padding: 20px; /* Increased padding for separation */
+            margin-top: 30px; /* Adds more space from the preceding section */
+            border: 1px solid #d0d0d0; /* Adds a border for emphasis */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds depth */
         }
         #about-footer {
-    background-color: #f0e8ff; /* Soft purple */
-    color: #6a5495; /* Complementary darker purple for the text */
-    font-family: 'Varela Round', sans-serif; /* Example of a whimsical font */
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    text-align: center;
-}
-#about-footer {
-    border: 2px dashed #a79cc8; /* Softly dashed border */
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Soft shadow for depth */
-    border-radius: 20px; /* More pronounced rounded corners */
-    background: url('path-to-cute-background-image.jpg') no-repeat center center; /* Optional: Cute background image */
-    background-size: cover; /* Ensures background image covers the div */
-}
-#about-footer {
-    padding: 30px; /* More internal space */
-    margin: 40px auto; /* Centers the section with more space around it */
-}
-        /* Add all the CSS here */
+            background-color: #f0e8ff; /* Soft purple */
+            color: #6a5495; /* Complementary darker purple for the text */
+            font-family: 'Varela Round', sans-serif;
+            padding: 30px;
+            margin: 40px auto;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 2px dashed #a79cc8;
+            background-size: cover; /* Ensures background image covers the div */
+        }
         .custom-details {
-          border: 2px solid indianred;
-          border-radius: 8px;
-          margin-bottom: 10px;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid indianred;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
         .custom-summary {
-          background-color: indianred;
-          color: white;
-          padding: 10px;
-          margin: -2px; /* To counteract the border */
-          border-radius: 6px;
-          cursor: pointer;
-          font-weight: bold;
+            background-color: indianred;
+            color: white;
+            padding: 10px;
+            margin: -2px; /* To counteract the border */
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
         }
-
         .custom-summary:hover {
-          background-color: #d94a4a;
+            background-color: #d94a4a;
         }
-
         .content {
-          padding: 20px;
+            padding: 20px;
         }
-
         .custom-details[open] .custom-summary {
-          border-radius: 6px 6px 0 0;
+            border-radius: 6px 6px 0 0;
         }
-
         .custom-details[open] {
-          border-radius: 8px 8px 0 0;
+            border-radius: 8px 8px 0 0;
         }
     </style>
+    
 
 </head>
 <body>
@@ -281,7 +262,7 @@
     
 
 <div class="container" id="improvement-steps">
-    <h2>Maybe, But What Can I Do?</h2>
+    <h2>Maybe its a Problem, But What Can I Do?</h2>
     <p>Start by identifying your reasons for wanting to reduce screen time. This could be to feel less lonely, sleep better, boost productivity, or simply be more present. Write down your goals.
     </p>
     <div>
@@ -313,6 +294,8 @@
         <li>If you're not convinced, opt for enriching media like podcasts, documentaries, or books that offer deeper engagement than social media.</li>
       </ul>
     </div>
+
+    <div>
   </details>
 
   <details class="custom-details">
@@ -329,29 +312,11 @@
   </details>
 </div>
 
+
       
 
 <p> Recognize the challenge of changing your phone habits. Like any lifestyle change, it takes continuous effort. Remember, your time is valuable, and it's okay to guard it against endless scrolling.</p>
-<div class="container" id="additional-resources">
-    <h2>Additional Resources</h2>
-    <p>Here are some helpful resources for further reading:</p>
-    <ul>
-        <li><a href="https://www.plume.com/homepass/blog/7-digital-detox-tips-to-promote-better-mental-health/" target="_blank">7 Digital Detox Tips</a></li>
-        <li> some cool article look for research</li>
-        <li><a href="https://time.com/5480002/benefits-of-boredom/" target="_blank" >Time Magazine: Being Bored Can Be Good for You — If You Do It Right.</a></li></li>
-    </ul>
-    <h2> Some Personal Reccomendations:</h2>
-    <ul>
-        <li> My favorite radio show: NPR Wait Wait Don't Tell Me</li>
-        <li> Some really cool books: basldh</li>
-        <li> Things I am currently trying to learn: how to speak french, rock climb (v6), and code!</li>
-    </ul>
-</div>
 
-<div class="container" id="about-footer">
-    <h2>About Me</h2>
-    <p>Hello! I am a 3rd year Environmental Studies student (not CS which I know is obvious) who wanted to make a visualization for my friends and family. I learned how to do this in a couple days using <a href="https://www.youtube.com/watch?v=PlxWf493en4" target ="_blank">FreeCodeCamp</a>, which is an awesome free resource!</p>
-</div>
 
 
 
